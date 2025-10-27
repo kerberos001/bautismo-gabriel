@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👼 Bautismo de Gabriel Alejandro 👼</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Paleta de colores celestial */
+            --color-principal: #87CEEB; 
+            --color-secundario: #fdfdfd;
+            --color-acento: #FFD700;
+            --color-acento-claro: #E0FFFF;
+            --color-fondo-cielo: #F0F8FF;
+            --color-texto-oscuro: #4a4a4a;
+            --color-acento-verde: #86b483;
+            --color-acento-dorado: #b8860b;
+            --color-sombra: rgba(0,0,0,0.05);
+
+            /* Fuentes adaptadas */
+            --fuente-titulo-cursiva: 'Great Vibes', cursive;
+            --fuente-cuerpo: 'Montserrat', sans-serif;
+        }
+
+        body {
+            font-family: var(--fuente-cuerpo);
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-fondo-cielo);
+            color: var(--color-texto-oscuro);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            background: radial-gradient(circle at top left, var(--color-acento-claro), var(--color-fondo-cielo));
+        }
+
+        #card-container {
+            perspective: 1000px;
+            width: 320px;
+            height: 480px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 10px 25px var(--color-sombra);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background-color: var(--color-secundario);
+            border: 1px solid #e0e0e0;
+        }
+
+        #card-container.opened {
+            width: 90vw;
+            max-width: 700px;
+            height: 90vh;
+            max-height: 950px;
+            cursor: default;
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+        /* Portada de la tarjeta */
+        .card-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-fondo-principal); 
+            color: var(--color-texto-oscuro);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden;
+            transform-origin: left center;
+            transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s;
+            z-index: 20;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--color-sombra);
+            position: relative;
+        }
+        
+        .card-cover::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 2px solid var(--color-acento-verde);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        #card-container.opened .card-cover {
+            transform: rotateY(-180deg);
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .card-cover p { 
+            font-family: var(--fuente-cuerpo);
+            font-weight: 300;
+            font-size: 1.0em;
+            margin: 5px 0;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .card-cover h1 { 
+            font-family: var(--fuente-titulo-cursiva);
+            font-size: 2.8em;
+            margin: 10px 15px 20px;
+            color: var(--color-acento-verde);
+            line-height: 1;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        .click-hint {
+            margin-top: 20px;
+            font-size: 0.9em;
+            opacity: 0.8;
+            color: var(--color-texto-oscuro);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+
+        /* Ángeles flotantes (mantenidos) */
+        .angel-icon {
+            position: absolute;
+            font-size: 2.5em;
+            color: rgba(134, 180, 131, 0.4);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            animation: floatAngel 8s ease-in-out infinite;
+        }
+
+        #angel-top-left { top: 10%; left: 15%; animation-delay: 0s; }
+        #angel-top-right { top: 15%; right: 10%; animation-delay: 2s; }
+        #angel-bottom-left { bottom: 10%; left: 10%; animation-delay: 4s; }
+        #angel-bottom-right { bottom: 5%; right: 15%; animation-delay: 6s; }
+
+        @keyframes floatAngel {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+            30% { transform: translateY(-10px) rotate(5deg); opacity: 0.6; }
+            70% { transform: translateY(10px) rotate(-5deg); opacity: 0.6; }
+            100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+        }
+
+        /* Contenido de la invitación */
+        #invitacion-contenido {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-fondo-principal);
+            border-radius: 15px;
+            overflow-y: auto;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1s ease-out 0.5s, transform 1s ease-out 0.5s;
+            box-shadow: 0 10px 25px var(--color-sombra);
+            padding-bottom: 20px;
+            z-index: 10;
+            text-align: center;
+        }
+
+        #card-container.opened #invitacion-contenido {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 30;
+        }
+
+        .encabezado-invitacion { 
+            padding: 25px 15px 0;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .foto-bebe {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 3px solid var(--color-secundario);
+            box-shadow: 0 0 0 5px var(--color-acento-verde), 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .foto-bebe img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            display: block;
+        }
+        
+        /* Margen corregido para el nombre */
+        .nombre-bautizado {
+            font-family: var(--fuente-titulo-cursiva);
+            font-size: 3.5em;
+            color: var(--color-acento-verde);
+            margin: 20px 0 30px; /* Restaurado el margen original */
+            line-height: 1;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .fecha-hora-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px; /* Restaurado el margen original */
+            padding: 0 20px;
+        }
+
+        .padres-padrinos {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding: 20px 20px 40px;
+            border-top: 1px dashed #e0e0e0;
+            border-bottom: 1px dashed #e0e0e0;
+            margin: 0 20px;
+            position: relative;
+        }
+        .ubicacion {
+            padding: 30px 30px 0;
+            text-align: center;
+        }
+        .confirmacion {
+            padding: 0 30px 30px; /* Añadido margen inferior para separar del countdown */
+            text-align: center;
+        }
+        
+        /* ESTILOS DEL COUNTDOWN (REUBICADO Y MANTENIDO) */
+        #countdown-container {
+            padding: 10px 30px 20px; /* Contenedor para la cuenta regresiva */
+        }
+        #countdown-box {
+            background-color: var(--color-secundario);
+            margin: 15px 0;
+            padding: 15px 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px var(--color-sombra);
+            border: 1px solid #eee;
+        }
+        #countdown-box div {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        .time-unit {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--color-acento-verde);
+            line-height: 1.2;
+        }
+        .time-label {
+            display: block;
+            font-size: 0.8em;
+            font-weight: 500;
+            color: var(--color-texto-oscuro);
+            text-transform: uppercase;
+        }
+        .countdown-title {
+            font-family: var(--fuente-cuerpo);
+            font-size: 0.9em;
+            font-weight: 600;
+            color: var(--color-texto-oscuro);
+            margin-bottom: 8px;
+        }
+        /* FIN ESTILOS DEL COUNTDOWN */
+
+        .frase-final {
+            font-family: var(--fuente-titulo-cursiva);
+            font-size: 2em;
+            color: var(--color-acento-verde);
+            margin-top: 30px;
+            padding-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .botones-digitales {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .boton {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 30px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 5px var(--color-sombra);
+            font-size: 0.95em;
+        }
+
+        .boton span {
+            margin-right: 8px;
+        }
+        
+        .mapa {
+            background-color: var(--color-acento-verde);
+            color: white;
+            border: 1px solid var(--color-acento-verde);
+        }
+        .mapa:hover {
+            background-color: var(--color-acento-dorado);
+            border-color: var(--color-acento-dorado);
+            transform: scale(1.03);
+            color: white;
+        }
+
+        .rsvp {
+            background-color: #6cb667;
+            color: white;
+            border: 1px solid #6cb667;
+        }
+        .rsvp:hover {
+            background-color: #55a050;
+            transform: scale(1.03);
+        }
+
+        @media (min-width: 480px) {
+            .botones-digitales {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="card-container">
+        <div class="card-cover">
+            
+            <span class="angel-icon" id="angel-top-left">👼</span>
+            <span class="angel-icon" id="angel-top-right">👼</span>
+            <span class="angel-icon" id="angel-bottom-left">👼</span>
+            <span class="angel-icon" id="angel-bottom-right">👼</span>
+
+            <p>Tienes una Invitación</p>
+            <h1>Bautismo de Gabriel Alejandro</h1>
+            <p class="click-hint">Toca aquí para abrir</p>
+        </div>
+
+        <div id="invitacion-contenido">
+            <div class="encabezado-invitacion">
+                <p>Te invitamos a celebrar con nosotros el</p>
+                <p class="nombre-evento">Bautismo de nuestro pequeño</p>
+            </div>
+
+            <div class="foto-bebe">
+                <img src="unnamed.jpg" alt="Foto de Gabriel con marco de hojas">
+            </div>
+            
+            <p class="nombre-bautizado">Gabriel Alejandro</p>
+            
+            <div class="fecha-hora-grid">
+                <div class="fecha-hora-item">
+                    <span>SÁBADO</span>
+                    <div class="fecha-hora-line"></div>
+                </div>
+                <div class="fecha-hora-item">
+                    <span class="fecha-hora-grande">27</span> 
+                    <span>DICIEMBRE</span>
+                </div>
+                <div class="fecha-hora-item">
+                    <span>A LAS 16:00</span>
+                    <div class="fecha-hora-line"></div>
+                </div>
+            </div>
+            <div class="padres-padrinos">
+                <div>
+                    <strong>PAPÁS</strong>
+                    <p>Jorge Montenegro</p>
+                    <p>Nathaly Paillacho</p>
+                </div>
+                <span class="cruz-central">†</span> 
+                <div>
+                    <strong>PADRINOS</strong>
+                    <p>[Nombre Padrino]</p> 
+                    <p>[Nombre Madrina]</p> 
+                </div>
+            </div>
+
+            <section class="ubicacion">
+                <p>La ceremonia religiosa tendrá lugar en:</p>
+                <p><strong>💒 Iglesia Matriz San Gabriel Montúfar</strong></p>
+                <p>Y posteriormente celebraremos en:</p>
+                <p><strong>🥂 Salón Elegido Cristóbal Colón San Gabriel</strong></p>
+            </section>
+
+            <section class="confirmacion">
+                <p>Confirma tu asistencia:</p>
+                <p><a href="https://wa.me/593988874121?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20bautismo%20de%20Gabriel." target="_blank">
+                    (593) 988874121
+                </a></p>
+            </section>
+            
+            <div class="botones-digitales">
+                
+                <a href="https://www.google.com/maps/dir/Iglesia+Matriz+San+Gabriel+Montufar/Elegido+Cristóbal+Colón+San+Gabriel" target="_blank" class="boton mapa">
+                    <span>📍</span> VER UBICACIÓN
+                </a>
+                
+                <a href="https://wa.me/593988874121?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20bautismo%20de%20Gabriel." target="_blank" class="boton rsvp">
+                    <span>📱</span> CONFIRMAR ASISTENCIA
+                </a>
+            </div>
+
+            <div id="countdown-container">
+                <div id="countdown-box">
+                    <p class="countdown-title">¡Faltan para el Bautismo!</p>
+                    <div>
+                        <div><span id="days" class="time-unit">00</span><span class="time-label">Días</span></div>
+                        <div><span id="hours" class="time-unit">00</span><span class="time-label">Horas</span></div>
+                        <div><span id="minutes" class="time-unit">00</span><span class="time-label">Minutos</span></div>
+                        <div><span id="seconds" class="time-unit">00</span><span class="time-label">Segundos</span></div>
+                    </div>
+                </div>
+            </div>
+            <p class="frase-final">¡Te esperamos!</p>
+
+        </div>
+    </div>
+
+    <script>
+        // Lógica de JavaScript para la animación de apertura de tarjeta (mantenida)
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const cardContainer = document.getElementById('card-container');
+            
+            // Animación de aparición
+            cardContainer.style.opacity = '0';
+            cardContainer.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                cardContainer.style.opacity = '1';
+                cardContainer.style.transform = 'translateY(0)';
+            }, 100);
+
+            // Apertura de tarjeta
+            cardContainer.addEventListener('click', () => {
+                if (!cardContainer.classList.contains('opened')) {
+                    cardContainer.classList.add('opened');
+                    
+                    setTimeout(() => {
+                        document.body.style.overflow = 'auto'; 
+                    }, 1500); 
+                }
+            });
+            
+            // LÓGICA DE CUENTA REGRESIVA
+            // Fecha del evento: Diciembre 27, 2025 a las 16:00 (4 PM)
+            const eventDate = new Date("Dec 27, 2025 16:00:00").getTime();
+
+            const updateCountdown = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = eventDate - now;
+                
+                // Cálculos
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                // Formatear a dos dígitos (ej: 05)
+                const formatTime = (t) => String(t).padStart(2, '0');
+
+                // Mostrar el resultado en los elementos
+                document.getElementById("days").innerHTML = formatTime(days);
+                document.getElementById("hours").innerHTML = formatTime(hours);
+                document.getElementById("minutes").innerHTML = formatTime(minutes);
+                document.getElementById("seconds").innerHTML = formatTime(seconds);
+                
+                // Cuando la cuenta regresiva termina
+                if (distance < 0) {
+                    clearInterval(updateCountdown);
+                    document.getElementById("countdown-box").innerHTML = "<p class='countdown-title' style='color: var(--color-acento-dorado); font-size: 1.2em;'>¡EL EVENTO HA COMENZADO!</p>";
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

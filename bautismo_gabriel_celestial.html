@@ -9,7 +9,6 @@
     
     <style>
         :root {
-            /* Paleta de colores celestial */
             --color-principal: #87CEEB; 
             --color-secundario: #fdfdfd;
             --color-acento: #FFD700;
@@ -20,7 +19,6 @@
             --color-acento-dorado: #b8860b;
             --color-sombra: rgba(0,0,0,0.05);
 
-            /* Fuentes adaptadas */
             --fuente-titulo-cursiva: 'Great Vibes', cursive;
             --fuente-cuerpo: 'Montserrat', sans-serif;
         }
@@ -62,8 +60,8 @@
             background-color: transparent;
             box-shadow: none;
         }
-
-        /* Portada de la tarjeta */
+        
+        /* Contenido principal y portada (manteniéndose correctos) */
         .card-cover {
             position: absolute;
             top: 0;
@@ -159,7 +157,6 @@
             100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
         }
 
-        /* Contenido de la invitación */
         #invitacion-contenido {
             position: absolute;
             top: 0;
@@ -213,12 +210,11 @@
             display: block;
         }
         
-        /* Margen corregido para el nombre */
         .nombre-bautizado {
             font-family: var(--fuente-titulo-cursiva);
             font-size: 3.5em;
             color: var(--color-acento-verde);
-            margin: 20px 0 30px; /* Restaurado el margen original */
+            margin: 20px 0 30px;
             line-height: 1;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
         }
@@ -228,8 +224,31 @@
             justify-content: center;
             align-items: center;
             gap: 10px;
-            margin-bottom: 30px; /* Restaurado el margen original */
+            margin-bottom: 30px;
             padding: 0 20px;
+        }
+        
+        .fecha-hora-item {
+            font-family: var(--fuente-cuerpo);
+            font-size: 1.1em;
+            font-weight: 500;
+            color: var(--color-texto-oscuro);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .fecha-hora-line {
+            width: 60px;
+            height: 1px;
+            background-color: #ccc;
+            margin: 5px 0;
+        }
+        .fecha-hora-grande {
+            font-family: var(--fuente-cuerpo);
+            font-size: 1.8em;
+            font-weight: 600;
+            color: var(--color-acento-verde);
         }
 
         .padres-padrinos {
@@ -242,44 +261,74 @@
             margin: 0 20px;
             position: relative;
         }
+        .padres-padrinos > div {
+             text-align: center;
+             flex: 1;
+             padding: 0 10px;
+        }
+        .cruz-central {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5em;
+            color: var(--color-acento-dorado);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
         .ubicacion {
             padding: 30px 30px 0;
             text-align: center;
         }
         .confirmacion {
-            padding: 0 30px 30px; /* Añadido margen inferior para separar del countdown */
+            padding: 0 30px 30px;
             text-align: center;
         }
         
-        /* ESTILOS DEL COUNTDOWN (REUBICADO Y MANTENIDO) */
+        /* ESTILOS DEL COUNTDOWN (REVISADOS) */
         #countdown-container {
-            padding: 10px 30px 20px; /* Contenedor para la cuenta regresiva */
+            padding: 10px 20px 20px; /* Ajuste el padding para ser más flexible */
         }
         #countdown-box {
             background-color: var(--color-secundario);
             margin: 15px 0;
-            padding: 15px 10px;
+            padding: 15px 0; /* Padding horizontal 0 para que los elementos internos controlen el espacio */
             border-radius: 10px;
             box-shadow: 0 2px 5px var(--color-sombra);
             border: 1px solid #eee;
         }
         #countdown-box div {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-around; /* Distribuir el espacio entre los elementos */
+            align-items: center;
             text-align: center;
+            flex-wrap: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
+            width: 100%; /* Asegura que ocupe todo el ancho disponible */
         }
+        .time-unit-wrapper {
+            flex-basis: 25%; /* Cada unidad toma el 25% del ancho */
+            flex-grow: 1; /* Permite crecer un poco si hay espacio */
+            flex-shrink: 1; /* Permite encogerse si no hay espacio */
+            padding: 0 5px; /* Padding interno para separar los números */
+            box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
+        }
+
         .time-unit {
-            font-size: 1.5em;
+            font-size: 1.5em; /* Tamaño base para números */
             font-weight: 700;
             color: var(--color-acento-verde);
             line-height: 1.2;
+            white-space: nowrap; /* Evita que los números se rompan */
         }
         .time-label {
             display: block;
-            font-size: 0.8em;
+            font-size: 0.8em; /* Tamaño base para etiquetas */
             font-weight: 500;
             color: var(--color-texto-oscuro);
             text-transform: uppercase;
+            white-space: nowrap; /* Evita que las etiquetas se rompan */
+            overflow: hidden; /* Oculta si la etiqueta es demasiado larga */
+            text-overflow: ellipsis; /* Añade puntos suspensivos si se oculta */
         }
         .countdown-title {
             font-family: var(--fuente-cuerpo);
@@ -288,7 +337,21 @@
             color: var(--color-texto-oscuro);
             margin-bottom: 8px;
         }
-        /* FIN ESTILOS DEL COUNTDOWN */
+        
+        /* Media Query para pantallas pequeñas (celulares) */
+        @media (max-width: 400px) { /* Un breakpoint ligeramente más pequeño para máxima compresión */
+            .time-unit {
+                font-size: 1.2em; /* Reducimos aún más el tamaño de los números */
+            }
+            .time-label {
+                font-size: 0.65em; /* Reducimos aún más el tamaño de las etiquetas */
+            }
+            .time-unit-wrapper {
+                padding: 0 3px; /* Más pequeño para ahorrar espacio */
+            }
+        }
+        /* FIN ESTILOS DEL COUNTDOWN (REVISADOS) */
+
 
         .frase-final {
             font-family: var(--fuente-titulo-cursiva);
@@ -394,6 +457,8 @@
                     <div class="fecha-hora-line"></div>
                 </div>
             </div>
+
+            
             <div class="padres-padrinos">
                 <div>
                     <strong>PAPÁS</strong>
@@ -437,10 +502,10 @@
                 <div id="countdown-box">
                     <p class="countdown-title">¡Faltan para el Bautismo!</p>
                     <div>
-                        <div><span id="days" class="time-unit">00</span><span class="time-label">Días</span></div>
-                        <div><span id="hours" class="time-unit">00</span><span class="time-label">Horas</span></div>
-                        <div><span id="minutes" class="time-unit">00</span><span class="time-label">Minutos</span></div>
-                        <div><span id="seconds" class="time-unit">00</span><span class="time-label">Segundos</span></div>
+                        <div class="time-unit-wrapper"><span id="days" class="time-unit">00</span><span class="time-label">Días</span></div>
+                        <div class="time-unit-wrapper"><span id="hours" class="time-unit">00</span><span class="time-label">Horas</span></div>
+                        <div class="time-unit-wrapper"><span id="minutes" class="time-unit">00</span><span class="time-label">Minutos</span></div>
+                        <div class="time-unit-wrapper"><span id="seconds" class="time-unit">00</span><span class="time-label">Segundos</span></div>
                     </div>
                 </div>
             </div>
@@ -450,11 +515,9 @@
     </div>
 
     <script>
-        // Lógica de JavaScript para la animación de apertura de tarjeta (mantenida)
         document.addEventListener('DOMContentLoaded', (event) => {
             const cardContainer = document.getElementById('card-container');
             
-            // Animación de aparición
             cardContainer.style.opacity = '0';
             cardContainer.style.transform = 'translateY(20px)';
             setTimeout(() => {
@@ -462,7 +525,6 @@
                 cardContainer.style.transform = 'translateY(0)';
             }, 100);
 
-            // Apertura de tarjeta
             cardContainer.addEventListener('click', () => {
                 if (!cardContainer.classList.contains('opened')) {
                     cardContainer.classList.add('opened');
@@ -474,32 +536,32 @@
             });
             
             // LÓGICA DE CUENTA REGRESIVA
-            // Fecha del evento: Diciembre 27, 2025 a las 16:00 (4 PM)
             const eventDate = new Date("Dec 27, 2025 16:00:00").getTime();
 
             const updateCountdown = setInterval(function() {
                 const now = new Date().getTime();
                 const distance = eventDate - now;
                 
-                // Cálculos
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
                 
-                // Formatear a dos dígitos (ej: 05)
                 const formatTime = (t) => String(t).padStart(2, '0');
 
-                // Mostrar el resultado en los elementos
-                document.getElementById("days").innerHTML = formatTime(days);
-                document.getElementById("hours").innerHTML = formatTime(hours);
-                document.getElementById("minutes").innerHTML = formatTime(minutes);
-                document.getElementById("seconds").innerHTML = formatTime(seconds);
+                if (document.getElementById("days")) { // Verificamos que los elementos existan antes de actualizarlos
+                    document.getElementById("days").innerHTML = formatTime(days);
+                    document.getElementById("hours").innerHTML = formatTime(hours);
+                    document.getElementById("minutes").innerHTML = formatTime(minutes);
+                    document.getElementById("seconds").innerHTML = formatTime(seconds);
+                }
                 
-                // Cuando la cuenta regresiva termina
                 if (distance < 0) {
                     clearInterval(updateCountdown);
-                    document.getElementById("countdown-box").innerHTML = "<p class='countdown-title' style='color: var(--color-acento-dorado); font-size: 1.2em;'>¡EL EVENTO HA COMENZADO!</p>";
+                    const countdownBox = document.getElementById("countdown-box");
+                    if (countdownBox) {
+                        countdownBox.innerHTML = "<p class='countdown-title' style='color: var(--color-acento-dorado); font-size: 1.2em;'>¡EL EVENTO HA COMENZADO!</p>";
+                    }
                 }
             }, 1000);
         });

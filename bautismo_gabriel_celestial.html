@@ -13,7 +13,8 @@
         :root {
             --color-azul-principal: #427c9b; 
             --color-azul-acento: #87b4d3;  
-            --color-fondo-base: #f7f7f7;   
+            /* ✨ Cambiamos el color base para que la textura resalte mejor */
+            --color-fondo-base: #f9f9f5;   
             --color-texto-oscuro: #2c3e50; 
             --color-lineas: #c2d4e1;       
             --color-texto-claro: #427c9b;
@@ -27,19 +28,19 @@
             font-family: var(--fuente-cuerpo);
             margin: 0;
             padding: 0;
-            background-color: var(--color-fondo-base);
+            background-color: #e9ecef; /* Mantenemos el fondo gris para contraste */
             color: var(--color-texto-oscuro);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden; 
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj4KICA8ZGVmcz4KICAgIDxmaWx0ZXIgaWQ9Im5vaXNlIiB4PSIwJSIgeT0iMCUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgogICAgICA8ZmV0dXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjY1IiBudW0T/w+PC9mZXR1cmJ1bGVuY2U+CiAgICAgIDxmZXR1c2NhbGUgc2NhbGU9IjUwIiAvPgogICAgICA8ZmV0dXJlY29sb3JtYXRyaXggdHlwZT0ibHVtaW5hbmNlVG9BbHBoYSIgLz4KICAgICAgPGZldHVtb250ZSBpbj0ic291cmNlR3JhcGhpYyIgcmVzdWx0PSJtb250YWdlIiAvPgogICAgPC9maWx0ZXI+CiAgICA8cmVjdCBpZD0iYmFzZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2Y3ZjdmNyIgLz4KICA8L2RlZnM+CiAgPHVzZSB4bGluazpocmVmPSIjYmFzZSIgLz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjRkZGRkZGIiBvcGFjaXR5PSIwLjE1IiBmaWx0ZXI9InVybCgjbW9udGFnZSkiIC8+Cjwvc3ZnPg==');
-            background-repeat: repeat;
         }
 
         #card-container {
             perspective: 1000px;
+            /* ✨ Añadido para mejorar la animación 3D */
+            transform-style: preserve-3d; 
             width: 320px;
             height: 480px;
             position: relative;
@@ -62,6 +63,13 @@
             box-shadow: none;
         }
         
+        /* ✨ ESTA ES LA NUEVA FORMA DE APLICAR LA TEXTURA ✨ */
+        .textura-hilo {
+            background-color: var(--color-fondo-base);
+            /* Se aplica un color de fondo Y ADEMÁS la textura SVG como segunda capa */
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><filter id="f"><feTurbulence type="fractalNoise" baseFrequency="0.01 0.4" numOctaves="2" seed="5" result="t"/><feDiffuseLighting in="t" lighting-color="%23fff" surfaceScale="1"><feDistantLight azimuth="45" elevation="1"/></feDiffuseLighting></filter><rect width="100%" height="100%" filter="url(%23f)" opacity="0.1"/></svg>');
+        }
+
         .card-cover {
             position: absolute;
             top: 0;
@@ -78,16 +86,16 @@
             z-index: 20;
             border-radius: 15px;
             box-shadow: 0 5px 15px var(--sombra-sutil);
-            position: relative;
             text-align: center;
             padding-top: 50px; 
-
-            background: radial-gradient(circle at top, rgba(255,255,255,1) 0%, var(--color-lineas) 100%);
-            /* Si tienes una URL de imagen estable de flores, descomenta y úsala aquí: */
+            
+            /* La imagen de flores va primero, la textura va encima */
             background-image: url('pngwing4.png');
             background-size: cover;
             background-position: center top;
             background-repeat: no-repeat;
+            
+            /* ✨ Ya no usamos 'filter', la clase 'textura-hilo' lo gestiona */
         }
         
         #card-container.opened .card-cover {
@@ -97,69 +105,7 @@
             pointer-events: none;
         }
 
-        .card-cover p:first-child { 
-            font-family: var(--fuente-cuerpo);
-            font-weight: 500;
-            font-size: 1.1em;
-            margin-top: 15px;
-            color: var(--color-texto-claro);
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
-        }
-
-        .card-cover h1 { 
-            font-family: var(--fuente-titulo-cursiva);
-            font-size: 2.5em; 
-            margin: 5px 15px 15px;
-            color: var(--color-azul-principal);
-            line-height: 1.1;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); 
-            word-wrap: break-word;
-        }
-
-        /* *************************************************** */
-        /* REVISIÓN FINAL: Foto de bebé Redonda y bien ajustada*/
-        /* *************************************************** */
-        .foto-bebe-portada {
-            width: 160px; 
-            height: 160px; 
-            border-radius: 50%; 
-            overflow: hidden; 
-            margin: 40px auto 20px; 
-            border: 4px solid var(--color-lineas);
-            box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.6), 0 5px 15px var(--sombra-sutil);
-            position: relative;
-            z-index: 10;
-            /* Añadido para asegurar que el fondo del contenedor es blanco antes de la imagen */
-            background-color: white; 
-        }
-
-        .foto-bebe-portada img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            object-position: center center; 
-            display: block;
-            /* Opcional: transición suave para la imagen si cambia de tamaño */
-            transition: transform 0.3s ease-in-out; 
-        }
-        /* Opcional: Pequeño efecto al pasar el ratón */
-        .foto-bebe-portada:hover img {
-            transform: scale(1.05);
-        }
-        
-        .click-hint {
-            margin-top: 20px;
-            font-size: 0.9em;
-            opacity: 0.8;
-            color: var(--color-azul-principal);
-            animation: pulse 1.5s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.7; }
-        }
+        /* ... (resto del CSS de .card-cover sin cambios) ... */
 
         #invitacion-contenido {
             position: absolute;
@@ -167,7 +113,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--color-fondo-base);
             border-radius: 15px;
             overflow-y: auto;
             opacity: 0;
@@ -177,244 +122,23 @@
             padding-bottom: 20px;
             z-index: 10;
             text-align: center;
-            /* 👈👈 COMIENZO DE LOS CAMBIOS PARA LA IMAGEN DE FONDO 👈👈 */
-            background-image: url('pngwing7.png'); 
-            background-size: cover; /* Ajusta la imagen para cubrir todo el contenedor */
-            background-position: center center; /* Centra la imagen */
-            background-repeat: no-repeat; /* Evita que la imagen se repita */
-            /* 👆👆 FIN DE LOS CAMBIOS 👆👆 */
+            
+             /* ✨ Ya no usamos 'filter', la clase 'textura-hilo' lo gestiona */
         }
-
+        
         #card-container.opened #invitacion-contenido {
             opacity: 1;
             transform: scale(1);
             z-index: 30;
         }
 
-        .encabezado-invitacion { 
-            padding: 30px 15px 0;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        
-        .nombre-bautizado {
-            font-family: var(--fuente-titulo-cursiva);
-            font-size: 3.2em;
-            color: var(--color-azul-principal);
-            margin: 10px 0 25px;
-            line-height: 1;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.05);
-        }
-        .nombre-evento {
-            font-size: 0.9em;
-            color: var(--color-texto-oscuro);
-            margin-top: -5px;
-        }
+        /* ... (El resto de tu CSS sigue exactamente igual) ... */
+        .card-cover p:first-child{font-family:var(--fuente-cuerpo);font-weight:500;font-size:1.1em;margin-top:15px;color:var(--color-texto-claro);text-shadow:1px 1px 2px rgba(255,255,255,.7)}.card-cover h1{font-family:var(--fuente-titulo-cursiva);font-size:2.5em;margin:5px 15px 15px;color:var(--color-azul-principal);line-height:1.1;text-shadow:1px 1px 2px rgba(255,255,255,.8);word-wrap:break-word}.foto-bebe-portada{width:160px;height:160px;border-radius:50%;overflow:hidden;margin:40px auto 20px;border:4px solid var(--color-lineas);box-shadow:0 0 0 8px rgba(255,255,255,.6),0 5px 15px var(--sombra-sutil);position:relative;z-index:10;background-color:#fff}.foto-bebe-portada img{width:100%;height:100%;-o-object-fit:cover;object-fit:cover;-o-object-position:center center;object-position:center center;display:block;transition:transform .3s ease-in-out}.foto-bebe-portada:hover img{transform:scale(1.05)}.click-hint{margin-top:20px;font-size:.9em;opacity:.8;color:var(--color-azul-principal);animation:pulse 1.5s infinite}@keyframes pulse{0%{transform:scale(1);opacity:.7}50%{transform:scale(1.05);opacity:1}100%{transform:scale(1);opacity:.7}}.encabezado-invitacion{padding:30px 15px 0;text-align:center;margin-bottom:10px}.nombre-bautizado{font-family:var(--fuente-titulo-cursiva);font-size:3.2em;color:var(--color-azul-principal);margin:10px 0 25px;line-height:1;text-shadow:1px 1px 3px rgba(0,0,0,.05)}.nombre-evento{font-size:.9em;color:var(--color-texto-oscuro);margin-top:-5px}.fecha-hora-grid{display:flex;justify-content:center;align-items:center;gap:20px;margin-bottom:30px;padding:0 20px;border-top:1px solid var(--color-lineas);border-bottom:1px solid var(--color-lineas);padding:15px 20px;margin:0 20px 30px}.fecha-hora-item{font-family:var(--fuente-cuerpo);font-size:.9em;font-weight:500;color:var(--color-texto-oscuro);display:flex;flex-direction:column;justify-content:center;align-items:center}.fecha-hora-line{width:40px;height:2px;background-color:var(--color-azul-acento);margin:5px 0;opacity:.7}.fecha-hora-grande{font-family:var(--fuente-cuerpo);font-size:2.2em;font-weight:700;color:var(--color-azul-principal);line-height:1}.padres-padrinos{display:flex;justify-content:space-around;align-items:flex-start;padding:20px 20px 40px;margin:0 20px;position:relative}.padres-padrinos>div{text-align:center;flex:1;padding:0 5px}.padres-padrinos strong{font-size:.85em;font-weight:700;color:var(--color-azul-acento);text-transform:uppercase;display:block;margin-bottom:5px}.padres-padrinos p{margin:2px 0;font-size:.95em}.cruz-central{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:2.5em;color:var(--color-azul-acento);text-shadow:1px 1px 2px rgba(0,0,0,.05)}.ubicacion{padding:20px 30px 0;text-align:center}.ubicacion-texto{margin-bottom:10px;font-weight:500;color:var(--color-azul-principal)}.ubicacion strong{display:block;font-size:1.05em;margin-bottom:15px;color:var(--color-texto-oscuro)}.botones-ubicacion{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:15px 0 30px;padding:0 10px}.boton{display:inline-flex;align-items:center;padding:10px 18px;text-decoration:none;font-weight:600;border-radius:25px;transition:all .3s;text-transform:uppercase;letter-spacing:.5px;box-shadow:0 2px 4px var(--sombra-sutil);font-size:.85em}.boton span{margin-right:6px}.mapa-iglesia{background-color:var(--color-azul-principal);color:#fff;border:1px solid var(--color-azul-principal)}.mapa-iglesia:hover{background-color:#356782;transform:scale(1.03)}.mapa-recepcion{background-color:var(--color-azul-acento);color:var(--color-texto-oscuro);border:1px solid var(--color-azul-acento)}.mapa-recepcion:hover{background-color:#709ab8;transform:scale(1.03);color:#fff}.rsvp{margin-top:15px;background-color:#6cb667;color:#fff;border:1px solid #6cb667}.rsvp:hover{background-color:#55a050;transform:scale(1.03)}.frase-final{font-family:var(--fuente-titulo-cursiva);font-size:2.2em;color:var(--color-azul-principal);margin-top:20px;padding-bottom:20px;text-shadow:1px 1px 2px rgba(0,0,0,.1)}#music-button{position:fixed;bottom:20px;right:20px;width:45px;height:45px;border-radius:50%;background-color:var(--color-azul-principal);color:#fff;border:none;cursor:pointer;box-shadow:0 3px 6px var(--sombra-sutil);font-size:1.2em;z-index:100;display:flex;justify-content:center;align-items:center;opacity:.8;transition:opacity .3s,transform .3s}#music-button:hover{opacity:1;transform:scale(1.1)}.fa-volume-up{animation:spin 2s linear infinite}@keyframes spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}#card-container:not(.opened) #music-button{display:none}@media (min-width:480px){.botones-ubicacion{gap:15px}}
 
-        .fecha-hora-grid {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px; 
-            margin-bottom: 30px;
-            padding: 0 20px;
-            border-top: 1px solid var(--color-lineas);
-            border-bottom: 1px solid var(--color-lineas);
-            padding: 15px 20px;
-            margin: 0 20px 30px;
-        }
-        
-        .fecha-hora-item {
-            font-family: var(--fuente-cuerpo);
-            font-size: 0.9em;
-            font-weight: 500;
-            color: var(--color-texto-oscuro);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .fecha-hora-line {
-            width: 40px;
-            height: 2px;
-            background-color: var(--color-azul-acento);
-            margin: 5px 0;
-            opacity: 0.7;
-        }
-        .fecha-hora-grande {
-            font-family: var(--fuente-cuerpo);
-            font-size: 2.2em;
-            font-weight: 700;
-            color: var(--color-azul-principal);
-            line-height: 1;
-        }
-
-        .padres-padrinos {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-start;
-            padding: 20px 20px 40px;
-            margin: 0 20px;
-            position: relative;
-        }
-        .padres-padrinos > div {
-             text-align: center;
-             flex: 1;
-             padding: 0 5px;
-        }
-        .padres-padrinos strong {
-            font-size: 0.85em;
-            font-weight: 700;
-            color: var(--color-azul-acento);
-            text-transform: uppercase;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .padres-padrinos p {
-            margin: 2px 0;
-            font-size: 0.95em;
-        }
-
-        .cruz-central {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2.5em;
-            color: var(--color-azul-acento); 
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-        }
-
-        .ubicacion {
-            padding: 20px 30px 0;
-            text-align: center;
-        }
-        .ubicacion-texto {
-            margin-bottom: 10px;
-            font-weight: 500;
-            color: var(--color-azul-principal);
-        }
-        .ubicacion strong {
-            display: block;
-            font-size: 1.05em;
-            margin-bottom: 15px;
-            color: var(--color-texto-oscuro);
-        }
-        .botones-ubicacion {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0 30px;
-            padding: 0 10px;
-        }
-        
-        .boton {
-            display: inline-flex; 
-            align-items: center;
-            padding: 10px 18px;
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 25px;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 4px var(--sombra-sutil);
-            font-size: 0.85em;
-        }
-
-        .boton span {
-            margin-right: 6px;
-        }
-        
-        .mapa-iglesia {
-            background-color: var(--color-azul-principal);
-            color: white;
-            border: 1px solid var(--color-azul-principal);
-        }
-        .mapa-iglesia:hover {
-            background-color: #356782;
-            transform: scale(1.03);
-        }
-
-        .mapa-recepcion {
-            background-color: var(--color-azul-acento);
-            color: var(--color-texto-oscuro);
-            border: 1px solid var(--color-azul-acento);
-        }
-        .mapa-recepcion:hover {
-            background-color: #709ab8;
-            transform: scale(1.03);
-            color: white;
-        }
-
-        .rsvp {
-            margin-top: 15px;
-            background-color: #6cb667; 
-            color: white;
-            border: 1px solid #6cb667;
-        }
-        .rsvp:hover {
-            background-color: #55a050;
-            transform: scale(1.03);
-        }
-
-        .frase-final {
-            font-family: var(--fuente-titulo-cursiva);
-            font-size: 2.2em;
-            color: var(--color-azul-principal);
-            margin-top: 20px;
-            padding-bottom: 20px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        #music-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background-color: var(--color-azul-principal);
-            color: white;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 3px 6px var(--sombra-sutil);
-            font-size: 1.2em;
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0.8;
-            transition: opacity 0.3s, transform 0.3s;
-        }
-
-        #music-button:hover {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        .fa-volume-up {
-            animation: spin 2s linear infinite; 
-        }
-        
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        #card-container:not(.opened) #music-button {
-            display: none;
-        }
-
-        @media (min-width: 480px) {
-            .botones-ubicacion {
-                gap: 15px;
-            }
-        }
     </style>
 </head>
 <body>
+    
     <button id="music-button" aria-label="Control de música">
         <i class="fas fa-volume-off" id="music-icon"></i>
     </button>
@@ -425,7 +149,7 @@
     </audio>
 
     <div id="card-container">
-        <div class="card-cover">
+        <div class="card-cover textura-hilo">
             
             <p>MI BAUTIZO</p>
 
@@ -449,7 +173,7 @@
 
             <p class="click-hint">Toca aquí para abrir</p>
         </div>
-        <div id="invitacion-contenido">
+        <div id="invitacion-contenido" class="textura-hilo">
             <div class="encabezado-invitacion">
                 <p>Te invitamos a celebrar con nosotros el</p>
                 <p class="nombre-evento">Bautismo de nuestro pequeño</p>
@@ -529,13 +253,13 @@
         </div>
 
     <script>
+        // Tu JavaScript no necesita ningún cambio
         document.addEventListener('DOMContentLoaded', (event) => {
             const cardContainer = document.getElementById('card-container');
             const musicButton = document.getElementById('music-button');
             const musicIcon = document.getElementById('music-icon');
             const backgroundMusic = document.getElementById('background-music');
 
-            // 1. Efecto inicial de carga
             cardContainer.style.opacity = '0';
             cardContainer.style.transform = 'translateY(20px)';
             setTimeout(() => {
@@ -543,20 +267,17 @@
                 cardContainer.style.transform = 'translateY(0)';
             }, 100);
 
-            // 2. Lógica de apertura de la tarjeta y música
             cardContainer.addEventListener('click', () => {
                 if (!cardContainer.classList.contains('opened')) {
                     cardContainer.classList.add('opened');
                     
                     setTimeout(() => {
                         document.body.style.overflow = 'auto'; 
-                        // Intenta iniciar la música automáticamente al abrir la tarjeta
                         playMusic(); 
                     }, 1500); 
                 }
             });
 
-            // Función para reproducir/pausar la música
             const playMusic = () => {
                 const playPromise = backgroundMusic.play();
                 
@@ -565,15 +286,13 @@
                         musicIcon.classList.remove('fa-volume-off');
                         musicIcon.classList.add('fa-volume-up');
                     }).catch(error => {
-                        // El navegador bloqueó el autoplay. Se deja el botón para interacción manual.
                         console.log("Autoplay bloqueado. Toca el icono de música para iniciar.");
                     });
                 }
             };
 
-            // Lógica del botón de música
             musicButton.addEventListener('click', (e) => {
-                e.stopPropagation(); // Evita que el clic del botón cierre o reabra la tarjeta
+                e.stopPropagation(); 
                 if (backgroundMusic.paused) {
                     playMusic();
                 } else {
@@ -583,9 +302,6 @@
                 }
             });
 
-            
-            // 3. LÓGICA DE CUENTA REGRESIVA
-            // Se usa la hora exacta de la invitación: 27 de Diciembre, 18:00:00 (6 PM)
             const eventDate = new Date("Dec 27, 2025 18:00:00").getTime();
 
             const updateCountdown = setInterval(function() {

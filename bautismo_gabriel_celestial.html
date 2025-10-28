@@ -7,34 +7,35 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
         :root {
-            --color-principal: #87CEEB; 
-            --color-secundario: #fdfdfd;
-            --color-acento: #FFD700;
-            --color-acento-claro: #E0FFFF;
-            --color-fondo-cielo: #F0F8FF;
-            --color-texto-oscuro: #4a4a4a;
-            --color-acento-verde: #86b483;
-            --color-acento-dorado: #b8860b;
-            --color-sombra: rgba(0,0,0,0.05);
-
+            --color-azul-principal: #427c9b; 
+            --color-azul-acento: #87b4d3;  
+            --color-fondo-base: #f7f7f7;   
+            --color-texto-oscuro: #2c3e50; 
+            --color-lineas: #c2d4e1;       
+            --color-texto-claro: #427c9b;
+            
             --fuente-titulo-cursiva: 'Great Vibes', cursive;
             --fuente-cuerpo: 'Montserrat', sans-serif;
+            --sombra-sutil: rgba(0,0,0,0.1);
         }
 
         body {
             font-family: var(--fuente-cuerpo);
             margin: 0;
             padding: 0;
-            background-color: var(--color-fondo-cielo);
+            background-color: var(--color-fondo-base);
             color: var(--color-texto-oscuro);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
-            background: radial-gradient(circle at top left, var(--color-acento-claro), var(--color-fondo-cielo));
+            overflow-x: hidden; 
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj4KICA8ZGVmcz4KICAgIDxmaWx0ZXIgaWQ9Im5vaXNlIiB4PSIwJSIgeT0iMCUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgogICAgICA8ZmV0dXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjY1IiBudW0T/w+PC9mZXR1cmJ1bGVuY2U+CiAgICAgIDxmZXR1c2NhbGUgc2NhbGU9IjUwIiAvPgogICAgICA8ZmV0dXJlY29sb3JtYXRyaXggdHlwZT0ibHVtaW5hbmNlVG9BbHBoYSIgLz4KICAgICAgPGZldHVtb250ZSBpbj0ic291cmNlR3JhcGhpYyIgcmVzdWx0PSJtb250YWdlIiAvPgogICAgPC9maWx0ZXI+CiAgICA8cmVjdCBpZD0iYmFzZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2Y3ZjdmNyIgLz4KICA8L2RlZnM+CiAgPHVzZSB4bGluazpocmVmPSIjYmFzZSIgLz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjRkZGRkZGIiBvcGFjaXR5PSIwLjE1IiBmaWx0ZXI9InVybCgjbW9udGFnZSkiIC8+Cjwvc3ZnPg==');
+            background-repeat: repeat;
         }
 
         #card-container {
@@ -43,12 +44,12 @@
             height: 480px;
             position: relative;
             cursor: pointer;
-            box-shadow: 0 10px 25px var(--color-sombra);
+            box-shadow: 0 10px 30px var(--sombra-sutil);
             border-radius: 15px;
             overflow: hidden;
             transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            background-color: var(--color-secundario);
-            border: 1px solid #e0e0e0;
+            background-color: var(--color-fondo-base);
+            border: 1px solid var(--color-lineas);
         }
 
         #card-container.opened {
@@ -61,72 +62,96 @@
             box-shadow: none;
         }
         
-        /* Contenido principal y portada (manteniéndose correctos) */
         .card-cover {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--color-fondo-principal); 
-            color: var(--color-texto-oscuro);
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; 
             align-items: center;
             backface-visibility: hidden;
             transform-origin: left center;
             transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s;
             z-index: 20;
             border-radius: 15px;
-            box-shadow: 0 5px 15px var(--color-sombra);
+            box-shadow: 0 5px 15px var(--sombra-sutil);
             position: relative;
+            text-align: center;
+            padding-top: 50px; 
+
+            background: radial-gradient(circle at top, rgba(255,255,255,1) 0%, var(--color-lineas) 100%);
+            /* Si tienes una URL de imagen estable de flores, descomenta y úsala aquí: */
+            background-image: url('pngwing4.png');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
         }
         
-        .card-cover::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
-            border: 2px solid var(--color-acento-verde);
-            border-radius: 10px;
-            pointer-events: none;
-        }
-
         #card-container.opened .card-cover {
             transform: rotateY(-180deg);
             opacity: 0;
             z-index: 1;
             pointer-events: none;
         }
-        
-        .card-cover p { 
+
+        .card-cover p:first-child { 
             font-family: var(--fuente-cuerpo);
-            font-weight: 300;
-            font-size: 1.0em;
-            margin: 5px 0;
-            text-align: center;
-            padding: 0 20px;
+            font-weight: 500;
+            font-size: 1.1em;
+            margin-top: 15px;
+            color: var(--color-texto-claro);
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
         }
 
         .card-cover h1 { 
             font-family: var(--fuente-titulo-cursiva);
-            font-size: 2.8em;
-            margin: 10px 15px 20px;
-            color: var(--color-acento-verde);
-            line-height: 1;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            text-align: center;
+            font-size: 2.5em; 
+            margin: 5px 15px 15px;
+            color: var(--color-azul-principal);
+            line-height: 1.1;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); 
             word-wrap: break-word;
         }
 
+        /* *************************************************** */
+        /* REVISIÓN FINAL: Foto de bebé Redonda y bien ajustada*/
+        /* *************************************************** */
+        .foto-bebe-portada {
+            width: 160px; 
+            height: 160px; 
+            border-radius: 50%; 
+            overflow: hidden; 
+            margin: 40px auto 20px; 
+            border: 4px solid var(--color-lineas);
+            box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.6), 0 5px 15px var(--sombra-sutil);
+            position: relative;
+            z-index: 10;
+            /* Añadido para asegurar que el fondo del contenedor es blanco antes de la imagen */
+            background-color: white; 
+        }
+
+        .foto-bebe-portada img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center center; 
+            display: block;
+            /* Opcional: transición suave para la imagen si cambia de tamaño */
+            transition: transform 0.3s ease-in-out; 
+        }
+        /* Opcional: Pequeño efecto al pasar el ratón */
+        .foto-bebe-portada:hover img {
+            transform: scale(1.05);
+        }
+        
         .click-hint {
             margin-top: 20px;
             font-size: 0.9em;
             opacity: 0.8;
-            color: var(--color-texto-oscuro);
+            color: var(--color-azul-principal);
             animation: pulse 1.5s infinite;
         }
         
@@ -136,43 +161,28 @@
             100% { transform: scale(1); opacity: 0.7; }
         }
 
-        /* Ángeles flotantes (mantenidos) */
-        .angel-icon {
-            position: absolute;
-            font-size: 2.5em;
-            color: rgba(134, 180, 131, 0.4);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            animation: floatAngel 8s ease-in-out infinite;
-        }
-
-        #angel-top-left { top: 10%; left: 15%; animation-delay: 0s; }
-        #angel-top-right { top: 15%; right: 10%; animation-delay: 2s; }
-        #angel-bottom-left { bottom: 10%; left: 10%; animation-delay: 4s; }
-        #angel-bottom-right { bottom: 5%; right: 15%; animation-delay: 6s; }
-
-        @keyframes floatAngel {
-            0% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
-            30% { transform: translateY(-10px) rotate(5deg); opacity: 0.6; }
-            70% { transform: translateY(10px) rotate(-5deg); opacity: 0.6; }
-            100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
-        }
-
         #invitacion-contenido {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--color-fondo-principal);
+            background-color: var(--color-fondo-base);
             border-radius: 15px;
             overflow-y: auto;
             opacity: 0;
             transform: scale(0.9);
             transition: opacity 1s ease-out 0.5s, transform 1s ease-out 0.5s;
-            box-shadow: 0 10px 25px var(--color-sombra);
+            box-shadow: 0 10px 25px var(--sombra-sutil);
             padding-bottom: 20px;
             z-index: 10;
             text-align: center;
+            /* 👈👈 COMIENZO DE LOS CAMBIOS PARA LA IMAGEN DE FONDO 👈👈 */
+            background-image: url('pngwing7.png'); 
+            background-size: cover; /* Ajusta la imagen para cubrir todo el contenedor */
+            background-position: center center; /* Centra la imagen */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            /* 👆👆 FIN DE LOS CAMBIOS 👆👆 */
         }
 
         #card-container.opened #invitacion-contenido {
@@ -182,55 +192,41 @@
         }
 
         .encabezado-invitacion { 
-            padding: 25px 15px 0;
+            padding: 30px 15px 0;
             text-align: center;
             margin-bottom: 10px;
         }
         
-        .foto-bebe {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto 20px;
-            border: 3px solid var(--color-secundario);
-            box-shadow: 0 0 0 5px var(--color-acento-verde), 0 5px 15px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 10;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .foto-bebe img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center center;
-            display: block;
-        }
-        
         .nombre-bautizado {
             font-family: var(--fuente-titulo-cursiva);
-            font-size: 3.5em;
-            color: var(--color-acento-verde);
-            margin: 20px 0 30px;
+            font-size: 3.2em;
+            color: var(--color-azul-principal);
+            margin: 10px 0 25px;
             line-height: 1;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+        }
+        .nombre-evento {
+            font-size: 0.9em;
+            color: var(--color-texto-oscuro);
+            margin-top: -5px;
         }
 
         .fecha-hora-grid {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 20px; 
             margin-bottom: 30px;
             padding: 0 20px;
+            border-top: 1px solid var(--color-lineas);
+            border-bottom: 1px solid var(--color-lineas);
+            padding: 15px 20px;
+            margin: 0 20px 30px;
         }
         
         .fecha-hora-item {
             font-family: var(--fuente-cuerpo);
-            font-size: 1.1em;
+            font-size: 0.9em;
             font-weight: 500;
             color: var(--color-texto-oscuro);
             display: flex;
@@ -239,16 +235,18 @@
             align-items: center;
         }
         .fecha-hora-line {
-            width: 60px;
-            height: 1px;
-            background-color: #ccc;
+            width: 40px;
+            height: 2px;
+            background-color: var(--color-azul-acento);
             margin: 5px 0;
+            opacity: 0.7;
         }
         .fecha-hora-grande {
             font-family: var(--fuente-cuerpo);
-            font-size: 1.8em;
-            font-weight: 600;
-            color: var(--color-acento-verde);
+            font-size: 2.2em;
+            font-weight: 700;
+            color: var(--color-azul-principal);
+            line-height: 1;
         }
 
         .padres-padrinos {
@@ -256,150 +254,103 @@
             justify-content: space-around;
             align-items: flex-start;
             padding: 20px 20px 40px;
-            border-top: 1px dashed #e0e0e0;
-            border-bottom: 1px dashed #e0e0e0;
             margin: 0 20px;
             position: relative;
         }
         .padres-padrinos > div {
              text-align: center;
              flex: 1;
-             padding: 0 10px;
+             padding: 0 5px;
         }
+        .padres-padrinos strong {
+            font-size: 0.85em;
+            font-weight: 700;
+            color: var(--color-azul-acento);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .padres-padrinos p {
+            margin: 2px 0;
+            font-size: 0.95em;
+        }
+
         .cruz-central {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 2.5em;
-            color: var(--color-acento-dorado);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            color: var(--color-azul-acento); 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
 
         .ubicacion {
-            padding: 30px 30px 0;
+            padding: 20px 30px 0;
             text-align: center;
         }
-        .confirmacion {
-            padding: 0 30px 30px;
-            text-align: center;
-        }
-        
-        /* ESTILOS DEL COUNTDOWN (REVISADOS) */
-        #countdown-container {
-            padding: 10px 20px 20px; /* Ajuste el padding para ser más flexible */
-        }
-        #countdown-box {
-            background-color: var(--color-secundario);
-            margin: 15px 0;
-            padding: 15px 0; /* Padding horizontal 0 para que los elementos internos controlen el espacio */
-            border-radius: 10px;
-            box-shadow: 0 2px 5px var(--color-sombra);
-            border: 1px solid #eee;
-        }
-        #countdown-box div {
-            display: flex;
-            justify-content: space-around; /* Distribuir el espacio entre los elementos */
-            align-items: center;
-            text-align: center;
-            flex-wrap: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
-            width: 100%; /* Asegura que ocupe todo el ancho disponible */
-        }
-        .time-unit-wrapper {
-            flex-basis: 25%; /* Cada unidad toma el 25% del ancho */
-            flex-grow: 1; /* Permite crecer un poco si hay espacio */
-            flex-shrink: 1; /* Permite encogerse si no hay espacio */
-            padding: 0 5px; /* Padding interno para separar los números */
-            box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
-        }
-
-        .time-unit {
-            font-size: 1.5em; /* Tamaño base para números */
-            font-weight: 700;
-            color: var(--color-acento-verde);
-            line-height: 1.2;
-            white-space: nowrap; /* Evita que los números se rompan */
-        }
-        .time-label {
-            display: block;
-            font-size: 0.8em; /* Tamaño base para etiquetas */
+        .ubicacion-texto {
+            margin-bottom: 10px;
             font-weight: 500;
-            color: var(--color-texto-oscuro);
-            text-transform: uppercase;
-            white-space: nowrap; /* Evita que las etiquetas se rompan */
-            overflow: hidden; /* Oculta si la etiqueta es demasiado larga */
-            text-overflow: ellipsis; /* Añade puntos suspensivos si se oculta */
+            color: var(--color-azul-principal);
         }
-        .countdown-title {
-            font-family: var(--fuente-cuerpo);
-            font-size: 0.9em;
-            font-weight: 600;
+        .ubicacion strong {
+            display: block;
+            font-size: 1.05em;
+            margin-bottom: 15px;
             color: var(--color-texto-oscuro);
-            margin-bottom: 8px;
+        }
+        .botones-ubicacion {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0 30px;
+            padding: 0 10px;
         }
         
-        /* Media Query para pantallas pequeñas (celulares) */
-        @media (max-width: 400px) { /* Un breakpoint ligeramente más pequeño para máxima compresión */
-            .time-unit {
-                font-size: 1.2em; /* Reducimos aún más el tamaño de los números */
-            }
-            .time-label {
-                font-size: 0.65em; /* Reducimos aún más el tamaño de las etiquetas */
-            }
-            .time-unit-wrapper {
-                padding: 0 3px; /* Más pequeño para ahorrar espacio */
-            }
-        }
-        /* FIN ESTILOS DEL COUNTDOWN (REVISADOS) */
-
-
-        .frase-final {
-            font-family: var(--fuente-titulo-cursiva);
-            font-size: 2em;
-            color: var(--color-acento-verde);
-            margin-top: 30px;
-            padding-bottom: 20px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .botones-digitales {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
         .boton {
-            display: block;
-            padding: 12px 20px;
+            display: inline-flex; 
+            align-items: center;
+            padding: 10px 18px;
             text-decoration: none;
-            font-weight: 500;
-            border-radius: 30px;
+            font-weight: 600;
+            border-radius: 25px;
             transition: all 0.3s;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 3px 5px var(--color-sombra);
-            font-size: 0.95em;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px var(--sombra-sutil);
+            font-size: 0.85em;
         }
 
         .boton span {
-            margin-right: 8px;
+            margin-right: 6px;
         }
         
-        .mapa {
-            background-color: var(--color-acento-verde);
+        .mapa-iglesia {
+            background-color: var(--color-azul-principal);
             color: white;
-            border: 1px solid var(--color-acento-verde);
+            border: 1px solid var(--color-azul-principal);
         }
-        .mapa:hover {
-            background-color: var(--color-acento-dorado);
-            border-color: var(--color-acento-dorado);
+        .mapa-iglesia:hover {
+            background-color: #356782;
+            transform: scale(1.03);
+        }
+
+        .mapa-recepcion {
+            background-color: var(--color-azul-acento);
+            color: var(--color-texto-oscuro);
+            border: 1px solid var(--color-azul-acento);
+        }
+        .mapa-recepcion:hover {
+            background-color: #709ab8;
             transform: scale(1.03);
             color: white;
         }
 
         .rsvp {
-            background-color: #6cb667;
+            margin-top: 15px;
+            background-color: #6cb667; 
             color: white;
             border: 1px solid #6cb667;
         }
@@ -408,37 +359,100 @@
             transform: scale(1.03);
         }
 
+        .frase-final {
+            font-family: var(--fuente-titulo-cursiva);
+            font-size: 2.2em;
+            color: var(--color-azul-principal);
+            margin-top: 20px;
+            padding-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        #music-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--color-azul-principal);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 3px 6px var(--sombra-sutil);
+            font-size: 1.2em;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0.8;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        #music-button:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .fa-volume-up {
+            animation: spin 2s linear infinite; 
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        #card-container:not(.opened) #music-button {
+            display: none;
+        }
+
         @media (min-width: 480px) {
-            .botones-digitales {
-                flex-direction: row;
-                justify-content: space-around;
+            .botones-ubicacion {
+                gap: 15px;
             }
         }
     </style>
 </head>
 <body>
+    <button id="music-button" aria-label="Control de música">
+        <i class="fas fa-volume-off" id="music-icon"></i>
+    </button>
+    
+    <audio id="background-music" loop>
+        <source src="URL_DE_TU_CANCION.mpeg" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
 
     <div id="card-container">
         <div class="card-cover">
             
-            <span class="angel-icon" id="angel-top-left">👼</span>
-            <span class="angel-icon" id="angel-top-right">👼</span>
-            <span class="angel-icon" id="angel-bottom-left">👼</span>
-            <span class="angel-icon" id="angel-bottom-right">👼</span>
+            <p>MI BAUTIZO</p>
 
-            <p>Tienes una Invitación</p>
-            <h1>Bautismo de Gabriel Alejandro</h1>
+            <div class="foto-bebe-portada">
+                <img src="unnamed.jpg" alt="Foto de Gabriel con marco de flores">
+            </div>
+
+            <h1>Gabriel Alejandro</h1>
+            
+            <p style="font-size: 0.9em; margin-bottom: 25px; color: var(--color-azul-principal);">
+                Te invitamos a celebrar con nosotros el<br>bautizo de nuestro pequeño hijo
+            </p>
+
+            <div style="display: flex; align-items: center; margin-top: 10px; font-family: var(--fuente-cuerpo);">
+                <span style="font-size: 0.9em; font-weight: 500; color: var(--color-texto-oscuro); margin-right: 15px;">SÁBADO</span>
+                <span style="font-size: 2.5em; font-weight: 700; color: var(--color-azul-principal); margin: 0 10px;">27</span>
+                <span style="font-size: 0.9em; font-weight: 500; color: var(--color-texto-oscuro); margin-left: 15px;">A LAS 18:00</span>
+            </div>
+            <span style="font-size: 0.8em; font-weight: 500; color: var(--color-texto-oscuro); margin-top: -5px;">DICIEMBRE</span>
+
+
             <p class="click-hint">Toca aquí para abrir</p>
         </div>
-
         <div id="invitacion-contenido">
             <div class="encabezado-invitacion">
                 <p>Te invitamos a celebrar con nosotros el</p>
                 <p class="nombre-evento">Bautismo de nuestro pequeño</p>
-            </div>
-
-            <div class="foto-bebe">
-                <img src="unnamed.jpg" alt="Foto de Gabriel con marco de hojas">
             </div>
             
             <p class="nombre-bautizado">Gabriel Alejandro</p>
@@ -453,7 +467,7 @@
                     <span>DICIEMBRE</span>
                 </div>
                 <div class="fecha-hora-item">
-                    <span>A LAS 16:00</span>
+                    <span>A LAS 18:00</span>
                     <div class="fecha-hora-line"></div>
                 </div>
             </div>
@@ -465,38 +479,31 @@
                     <p>Jorge Montenegro</p>
                     <p>Nathaly Paillacho</p>
                 </div>
-                <span class="cruz-central">†</span> 
+                <i class="fas fa-cross cruz-central"></i>
                 <div>
                     <strong>PADRINOS</strong>
-                    <p>[Nombre Padrino]</p> 
-                    <p>[Nombre Madrina]</p> 
+                    <p>Abdón Paillacho</p> 
+                    <p>Zoila Tana</p> 
                 </div>
             </div>
 
             <section class="ubicacion">
-                <p>La ceremonia religiosa tendrá lugar en:</p>
-                <p><strong>💒 Iglesia Matriz San Gabriel Montúfar</strong></p>
-                <p>Y posteriormente celebraremos en:</p>
-                <p><strong>🥂 Salón Elegido Cristóbal Colón San Gabriel</strong></p>
-            </section>
+                <p class="ubicacion-texto">La ceremonia religiosa tendrá lugar en:</p>
+                <strong style="font-family: var(--fuente-titulo-cursiva); font-size: 1.8em;">Iglesia Matriz de San Gabriel</strong>
+                
+                <p class="ubicacion-texto" style="margin-top: 20px;">Y la recepción se llevará a cabo en:</p>
+                <strong style="font-family: var(--fuente-titulo-cursiva); font-size: 1.8em;">Salón de eventos</strong>
 
-            <section class="confirmacion">
-                <p>Confirma tu asistencia:</p>
-                <p><a href="https://wa.me/593988874121?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20bautismo%20de%20Gabriel." target="_blank">
-                    (593) 988874121
-                </a></p>
+                <div class="botones-ubicacion">
+                    <a href="URL_MAPA_IGLESIA" target="_blank" class="boton mapa-iglesia">
+                        <span><i class="fas fa-church"></i></span> Ver Iglesia
+                    </a>
+                    
+                    <a href="URL_MAPA_RECEPCION" target="_blank" class="boton mapa-recepcion">
+                        <span><i class="fas fa-cocktail"></i></span> Ver Recepción
+                    </a>
+                </div>
             </section>
-            
-            <div class="botones-digitales">
-                
-                <a href="https://www.google.com/maps/dir/Iglesia+Matriz+San+Gabriel+Montufar/Elegido+Cristóbal+Colón+San+Gabriel" target="_blank" class="boton mapa">
-                    <span>📍</span> VER UBICACIÓN
-                </a>
-                
-                <a href="https://wa.me/593988874121?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20bautismo%20de%20Gabriel." target="_blank" class="boton rsvp">
-                    <span>📱</span> CONFIRMAR ASISTENCIA
-                </a>
-            </div>
 
             <div id="countdown-container">
                 <div id="countdown-box">
@@ -509,15 +516,26 @@
                     </div>
                 </div>
             </div>
+            
+            <section class="confirmacion">
+                <a href="https://wa.me/593988874121?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20bautismo%20de%20Gabriel." target="_blank" class="boton rsvp">
+                    <span><i class="fab fa-whatsapp"></i></span> Confirmar Asistencia (RSVP)
+                </a>
+                <p style="font-size: 0.9em; margin-top: 10px;">¡Esperamos tu confirmación!</p>
+            </section>
+            
             <p class="frase-final">¡Te esperamos!</p>
-
         </div>
-    </div>
+        </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             const cardContainer = document.getElementById('card-container');
-            
+            const musicButton = document.getElementById('music-button');
+            const musicIcon = document.getElementById('music-icon');
+            const backgroundMusic = document.getElementById('background-music');
+
+            // 1. Efecto inicial de carga
             cardContainer.style.opacity = '0';
             cardContainer.style.transform = 'translateY(20px)';
             setTimeout(() => {
@@ -525,18 +543,50 @@
                 cardContainer.style.transform = 'translateY(0)';
             }, 100);
 
+            // 2. Lógica de apertura de la tarjeta y música
             cardContainer.addEventListener('click', () => {
                 if (!cardContainer.classList.contains('opened')) {
                     cardContainer.classList.add('opened');
                     
                     setTimeout(() => {
                         document.body.style.overflow = 'auto'; 
+                        // Intenta iniciar la música automáticamente al abrir la tarjeta
+                        playMusic(); 
                     }, 1500); 
                 }
             });
+
+            // Función para reproducir/pausar la música
+            const playMusic = () => {
+                const playPromise = backgroundMusic.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        musicIcon.classList.remove('fa-volume-off');
+                        musicIcon.classList.add('fa-volume-up');
+                    }).catch(error => {
+                        // El navegador bloqueó el autoplay. Se deja el botón para interacción manual.
+                        console.log("Autoplay bloqueado. Toca el icono de música para iniciar.");
+                    });
+                }
+            };
+
+            // Lógica del botón de música
+            musicButton.addEventListener('click', (e) => {
+                e.stopPropagation(); // Evita que el clic del botón cierre o reabra la tarjeta
+                if (backgroundMusic.paused) {
+                    playMusic();
+                } else {
+                    backgroundMusic.pause();
+                    musicIcon.classList.remove('fa-volume-up');
+                    musicIcon.classList.add('fa-volume-off');
+                }
+            });
+
             
-            // LÓGICA DE CUENTA REGRESIVA
-            const eventDate = new Date("Dec 27, 2025 16:00:00").getTime();
+            // 3. LÓGICA DE CUENTA REGRESIVA
+            // Se usa la hora exacta de la invitación: 27 de Diciembre, 18:00:00 (6 PM)
+            const eventDate = new Date("Dec 27, 2025 18:00:00").getTime();
 
             const updateCountdown = setInterval(function() {
                 const now = new Date().getTime();
@@ -549,7 +599,7 @@
                 
                 const formatTime = (t) => String(t).padStart(2, '0');
 
-                if (document.getElementById("days")) { // Verificamos que los elementos existan antes de actualizarlos
+                if (document.getElementById("days")) {
                     document.getElementById("days").innerHTML = formatTime(days);
                     document.getElementById("hours").innerHTML = formatTime(hours);
                     document.getElementById("minutes").innerHTML = formatTime(minutes);
@@ -560,7 +610,7 @@
                     clearInterval(updateCountdown);
                     const countdownBox = document.getElementById("countdown-box");
                     if (countdownBox) {
-                        countdownBox.innerHTML = "<p class='countdown-title' style='color: var(--color-acento-dorado); font-size: 1.2em;'>¡EL EVENTO HA COMENZADO!</p>";
+                        countdownBox.innerHTML = "<p class='countdown-title' style='color: var(--color-azul-principal); font-size: 1.2em; text-transform: uppercase;'>¡EL BAUTISMO HA INICIADO!</p>";
                     }
                 }
             }, 1000);
